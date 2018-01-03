@@ -2,6 +2,8 @@
 
 Docker容器化PHP开发环境
 
+> 请确保已安装了[Docker & Docker-Compose](https://www.docker.com/)
+
 ## Setup
 `make build`
 
