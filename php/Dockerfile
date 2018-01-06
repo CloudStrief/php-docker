@@ -63,6 +63,32 @@ RUN apk --update --virtual build-deps add \
 
 RUN echo "extension=imagick.so" > /usr/local/etc/php/conf.d/pecl-imagick.ini
 
+RUN apk add --no-cache --update --virtual .phpize-deps $PHPIZE_DEPS
+
+# 安装PHP Memcached扩展
+ENV MEMCACHED_DEPS zlib-dev libmemcached-dev cyrus-sasl-dev
+RUN apk add --no-cache --update libmemcached-libs zlib
+RUN set -xe \
+    && apk add --no-cache --update --virtual .memcached-deps $MEMCACHED_DEPS \
+    && pecl install memcached \
+    && echo "extension=memcached.so" > /usr/local/etc/php/conf.d/memcached.ini \
+    && apk del .memcached-deps
+
+# 安装PHP Redis扩展
+RUN set -xe \
+    && pecl install redis  \
+    && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
+
+# 安装PHP Mongodb扩展
+RUN set -xe \
+    && apk add --no-cache --update openssl-dev \
+    && pecl install mongodb  \
+    && echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/mongodb.ini
+
+RUN rm -rf /usr/share/php \
+    && rm -rf /tmp/* \
+    apk del .phpize-deps
+
 # 设置时区
 ENV TIME_ZONE Asia/Shanghai
 RUN echo "${TIME_ZONE}" > /etc/timezone \
