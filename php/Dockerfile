@@ -54,6 +54,8 @@ RUN apk --update --virtual build-deps add \
         intl \
         mbstring \
         opcache \
+        pcntl \
+        posix \
         pdo_mysql \
         pdo_pgsql && \
     pecl install \
