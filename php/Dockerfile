@@ -35,6 +35,7 @@ RUN apk --update --virtual build-deps add \
         libpng \
         libltdl \
         libxml2 \
+        linux-headers \
         mysql-client \
         postgresql && \
     docker-php-ext-configure gd \
@@ -86,6 +87,11 @@ RUN set -xe \
     && apk add --no-cache --update openssl-dev \
     && pecl install mongodb  \
     && echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/mongodb.ini
+
+# 安装PHP Swoole扩展
+RUN set -xe \
+    && pecl install swoole  \
+    && echo "extension=swoole.so" > /usr/local/etc/php/conf.d/swoole.ini
 
 RUN rm -rf /usr/share/php \
     && rm -rf /tmp/* \
