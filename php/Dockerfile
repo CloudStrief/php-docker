@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine
+FROM php:7.2-fpm-alpine3.7
 
 # 替换为国内阿里Alpine镜像
 COPY ./source.list /etc/apk/repositories
