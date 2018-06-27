@@ -22,7 +22,7 @@ php:
     - ./opt/htdocs:/opt/htdocs
 
 mysql:
-  image: mysql
+  image: mysql:5
   ports:
     - "3306:3306"
   volumes:
