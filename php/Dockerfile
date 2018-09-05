@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine3.7
+FROM php:7-fpm-alpine
 
 # 替换为国内阿里Alpine镜像
 COPY ./source.list /etc/apk/repositories
@@ -24,8 +24,6 @@ RUN apk --update --virtual build-deps add \
         curl \
         bash \
         bash-completion \
-        tree \
-        tzdata \
         icu \
         imagemagick \
         pcre \
@@ -35,7 +33,6 @@ RUN apk --update --virtual build-deps add \
         libpng \
         libltdl \
         libxml2 \
-        linux-headers \
         mysql-client \
         postgresql && \
     docker-php-ext-configure gd \
@@ -122,7 +119,7 @@ RUN composer global require --optimize-autoloader \
     composer clear-cache
 
 # 安装NPM
-ENV NODE_VERSION 10.5.0
+ENV NODE_VERSION 10.9.0
 RUN addgroup -g 1000 node \
     && adduser -u 1000 -G node -s /bin/sh -D node \
     && apk add --no-cache \
