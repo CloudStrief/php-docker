@@ -110,7 +110,9 @@ RUN curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
 
 # 替换国内镜像
-RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com
+# RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com
+# 更换为Laravel China 维护的国内镜像
+RUN composer config -g repo.packagist composer https://packagist.laravel-china.org
 
 # 安装Composer插件
 RUN composer global require --optimize-autoloader \
