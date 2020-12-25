@@ -1,4 +1,4 @@
-FROM php:7-fpm-alpine
+FROM php:7.2-fpm-alpine
 
 # 替换为国内阿里Alpine镜像
 COPY ./source.list /etc/apk/repositories
@@ -106,7 +106,8 @@ COPY ./config/conf.d/ /usr/local/etc/php/conf.d/
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
 # 安装Composer
-RUN curl -sS https://getcomposer.org/installer | php && \
+RUN curl -sS https://getcomposer.org/installer | php -- \
+        --version=1.10.19 && \
     mv composer.phar /usr/local/bin/composer
 
 # 替换国内镜像
